@@ -1,0 +1,96 @@
+import java.util.Scanner;
+class Ticket
+{
+   static int price;
+    static int seatnumber;
+
+    public Ticket(int price,int seatnumber) {
+        this.price = price;
+        this.seatnumber = seatnumber;
+    }
+    Ticket(){}
+}
+class BusTicket extends Ticket
+{
+    int totalbusseats=100;
+
+    public String caluclateprice(int nooftickets)
+    {
+        if(totalbusseats-nooftickets<0)
+        {
+            System.out.println ("seats not available");
+        }
+        else if(nooftickets>5)
+        {
+            double val=0.1 *(Ticket.price)*nooftickets;
+            return    Double.toString ((double)Ticket.price*nooftickets-val);
+
+        }
+        return    Integer.toString (nooftickets *Ticket.price);
+    }
+
+}
+class FlightTicket extends Ticket
+{
+    int flightseats=100;
+    public String caluclateprice(int nooftickets)
+    {
+        if(flightseats-nooftickets<0)
+        {
+            System.out.println("seats not available");
+        }
+        else if(nooftickets>5)
+        {
+            flightseats-=nooftickets;
+            double val= 0.1* Ticket.price *nooftickets;
+            return    Double.toString ((double)Ticket.price*nooftickets-val);
+
+        }
+        flightseats-=nooftickets;
+        return    Integer.toString (nooftickets * Ticket.price);
+    }
+
+
+}
+
+
+class OOPS
+{
+
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+        System.out.println("Welcome");
+        System.out.println("For Bus bookingplease enter B");
+        System.out.println("for flight booking please enter F");
+        String input="";
+        int seatnumber=-1;
+       while(true)
+       {
+           input=sc.next();
+           if(input.equals("B")||input.equals("F")|| input.equals("f")|| input.equals("b")) break;
+           System.out.println("please check the letter you have entered..please try again ..");
+       }
+
+
+        if(input.equals("B") || input.equals("b"))
+        {
+            seatnumber++;
+            new Ticket(100,seatnumber);
+            System.out.println("please enter number of Tickets");
+            int seats=sc.nextInt();
+            String res=new BusTicket().caluclateprice(seats);
+            System.out.println("The total price is"+res);
+
+        }
+        if(input.equals("F")|| input.equals("f"))
+        {
+            seatnumber++;
+            new Ticket(500,seatnumber);
+            System.out.println("please enter number of Tickets");
+            int seats =sc.nextInt();
+            String res=new BusTicket().caluclateprice(seats);
+            System.out.println("The total price is"+new FlightTicket().caluclateprice(seats));
+        }
+
+    }
+}
